@@ -24,6 +24,13 @@ def create_solution_starter(year: int, day: int) -> None:
     if not solution_path.exists():
         shutil.copy(str(TEMPLATE_PATH), str(solution_path))
 
+    # Create __init__.py
+    init_path = day_dir / "__init__.py"
+    if not init_path.exists():
+        init_path.touch()
+        with open(init_path, "w") as f:
+            f.write("from . import main")
+
     # Write my input to file.
     print("Copying individual input file...")
     try:
