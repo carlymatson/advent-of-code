@@ -1,0 +1,3 @@
+.pytest_cache
+myproject.egg-info
+venv
