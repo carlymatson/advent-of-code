@@ -16,10 +16,10 @@ def solution() -> Tuple[int, int]:
     text = load_input()
 
     ### Part 1 ###
-    part_1_solution = 0
+    part_1_solution = None
 
     ### Part 2 ###
-    part_2_solution = 0
+    part_2_solution = None
 
     return part_1_solution, part_2_solution
 

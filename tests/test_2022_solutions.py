@@ -8,6 +8,7 @@ import y2022
     [
         (y2022.day_01, 69693, 200945),
         (y2022.day_02, 13221, 13131),
+        (y2022.day_03, 7821, 2752),
     ],
 )
 def test_solutions(solution_module, answer1, answer2):
