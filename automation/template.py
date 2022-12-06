@@ -1,12 +1,13 @@
 from pathlib import Path
-from typing import Tuple
-
-from pyadvent import utils
-
-verbose = False
+from typing import Tuple, List, Dict, Set
+from pprint import pprint
 
 
-def load_input():
+def parse_line(s: str):
+    pass
+
+
+def load_input() -> str:
     filepath = Path(__file__).parent / "input.txt"
     text = filepath.read_text().strip()
     return text
@@ -22,9 +23,3 @@ def solution() -> Tuple[int, int]:
     part_2_solution = None
 
     return part_1_solution, part_2_solution
-
-
-if __name__ == "__main__":
-    part_1_solution, part_2_solution = solution()
-    print(f"Part 1 Solution: {part_1_solution}")
-    print(f"Part 2 Solution: {part_2_solution}")
