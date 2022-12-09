@@ -112,5 +112,10 @@ Cursor = AnsiCursor()
 
 
 def style(text: str, styles) -> str:
-    styling = "".join(styles)
-    return styling + text + Style.RESET_ALL
+    styling = "".join([str(s) for s in styles])
+    return styling + str(text) + Style.RESET_ALL
+
+
+def highlight(text, styles=(AnsiFore.RED,)):
+    styled = style(text, [code_to_chars(x) for x in styles])
+    return styled

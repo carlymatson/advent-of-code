@@ -13,6 +13,7 @@ import y2022
         (y2022.day_05, "TDCHVHJTG", "NGCMPJLHV"),
         (y2022.day_06, 1093, 3534),
         (y2022.day_07, 1845346, 3636703),
+        (y2022.day_08, 1854, 527340),
     ],
 )
 def test_solutions(solution_module, answer1, answer2):
