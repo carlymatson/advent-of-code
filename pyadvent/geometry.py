@@ -52,6 +52,10 @@ class Point:
     def __lt__(self, o: "Point") -> bool:
         return (self.x, self.y) < (o.x, o.y)
 
+    def __iter__(self):
+        yield self.x
+        yield self.y
+
     def __hash__(self):
         return hash((self.x, self.y))
 
