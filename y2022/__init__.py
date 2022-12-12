@@ -10,4 +10,5 @@ from . import (
     day_09,
     day_10,
     day_11,
+    day_12,
 )

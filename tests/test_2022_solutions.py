@@ -17,6 +17,7 @@ import y2022
         (y2022.day_09, 6090, 2566),
         (y2022.day_10, 14820, "RZEKEFHA"),
         (y2022.day_11, 64032, 12729522272),
+        (y2022.day_12, 447, 446),
     ],
 )
 def test_solutions(solution_module, answer1, answer2):
