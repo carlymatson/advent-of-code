@@ -1,6 +1,8 @@
-from pathlib import Path
+"""Day 3: Rucksack Reorganization
+https://adventofcode.com/2022/day/3
+"""
 
-from aoc.utils import copy_to_clipboard
+from pathlib import Path
 
 input_file = Path(__file__).parent / "input.txt"
 

@@ -1,3 +1,7 @@
+"""Day 4: Camp Cleanup
+https://adventofcode.com/2022/day/4
+"""
+
 from pathlib import Path
 
 input_file = Path(__file__).parent / "input.txt"

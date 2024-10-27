@@ -1,3 +1,7 @@
+"""Day 1: Calorie Counting
+https://adventofcode.com/2022/day/1
+"""
+
 from pathlib import Path
 
 input_file = Path(__file__).parent / "input.txt"
