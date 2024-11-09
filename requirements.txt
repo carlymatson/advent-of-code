@@ -1,5 +1,0 @@
-colored
-pyperclip
-pytest
-requests
-BeautifulSoup4

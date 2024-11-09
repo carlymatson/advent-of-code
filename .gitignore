@@ -1,3 +1,6 @@
-.pytest_cache
-myproject.egg-info
+.env
 venv
+.venv
+.pytest_cache
+advent_of_code.egg-info
+uv.lock

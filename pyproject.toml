@@ -1,0 +1,14 @@
+[project]
+name = "advent-of-code"
+version = "0.1.0"
+description = "Advent of code solutions"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.uv]
+dev-dependencies = [
+    "pyperclip>=1.9.0",
+    "requests>=2.32.3",
+    "termcolor>=2.5.0",
+]
