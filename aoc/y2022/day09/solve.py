@@ -5,7 +5,7 @@ https://adventofcode.com/2022/day/9
 from pathlib import Path
 from typing import Any
 
-from aoc.lib.geometry import DIRECTIONS, Point
+from aoc.lib.geometry import DIRECTIONS, Point, get_grid_bounds
 
 input_file = Path(__file__).parent / "input.txt"
 
@@ -28,11 +28,11 @@ class Rope:
         return " "
 
     def __str__(self) -> str:
-        xs = [point.x for point in self.knots + list(self.tail_visited)]
-        ys = [point.y for point in self.knots + list(self.tail_visited)]
+        all_points = self.knots + list(self.tail_visited)
+        x_bounds, y_bounds = get_grid_bounds(all_points)
         pixels = [
-            [self._get_pixel(x, y) for x in range(int(min(xs)), int(max(xs)) + 1)]
-            for y in range(int(min(ys)), int(max(ys)) + 1)
+            [self._get_pixel(x, y) for x in range(*x_bounds)]
+            for y in reversed(range(*y_bounds))
         ]
         return "\n".join("".join(row) for row in pixels)
 
@@ -63,7 +63,7 @@ class Solver:
         return [(line[0], int(line[2:])) for line in raw_input.split("\n")]
 
     def _apply_directions(self, rope: Rope) -> Rope:
-        for direction, amount in self.direction_amounts[:500]:
+        for direction, amount in self.direction_amounts:
             vector = DIRECTIONS[direction]
             for _ in range(amount):
                 rope.move(vector)
