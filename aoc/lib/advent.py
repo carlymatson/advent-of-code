@@ -1,5 +1,6 @@
 import re
 from pathlib import Path
+from typing import Literal
 
 import requests
 import typer
@@ -13,7 +14,7 @@ class AdventOfCodeClient:
     def __init__(self, session: requests.Session) -> None:
         self.session = session
         template_file = AOC_DIR / "lib" / "solution_starter.py"
-        self.template_text = template_file.read_text()
+        self.template_text = template_file.read_text().strip()
         self._puzzle_cache = {}
 
     def _get_day_url(self, year: int, day: int) -> str:
@@ -35,6 +36,10 @@ class AdventOfCodeClient:
         problem_text = self.get_puzzle_text(year, day)
         return list(re.findall(r"<h2>--- (Day \d+: .*?) ---</h2>", problem_text))[0]
 
+    def get_questions(self, year: int, day: int) -> list[str]:
+        problem_text = self.get_puzzle_text(year, day)
+        return re.findall(r"<em>(.*?\?)</em>", problem_text)
+
     def get_answers(self, year: int, day: int) -> list[str]:
         problem_text = self.get_puzzle_text(year, day)
         return re.findall(r"Your puzzle answer was <code>(.*?)</code>", problem_text)
@@ -50,6 +55,40 @@ class AdventOfCodeClient:
         with path.open("w") as f:
             f.write(value)
 
+    def _get_day_block(self, year: int, day: int) -> str:
+        title = self.get_puzzle_title(year, day)
+        url = self._get_day_url(year, day)
+        lines = [
+            f'    print("--- {title} ---")',
+            f'    print("{url}")',
+        ]
+        return "\n".join(lines)
+
+    def _get_part_block(self, year: int, day: int, part: Literal[1, 2]) -> str:
+        questions = self.get_questions(year, day)
+        answers = self.get_answers(year, day)
+        question = questions[part - 1] if len(questions) >= part else ""
+        answer = answers[part - 1] if len(answers) >= part else ""
+        lines = [
+            f'    print("({part}) {question}")',
+            f"    part_{part} = solver.solve_part_{part}()",
+            f'    print("Solution: " + str(part_{part}))',
+        ]
+        if answer:
+            lines.append(f'    print("Expected: {answer}")')
+        else:
+            lines.append(f"    copy_to_clipboard(part_{part})")
+        return "\n".join(lines)
+
+    def _get_suffix(self, year: int, day: int) -> str:
+        return "\n\n".join(
+            [
+                self._get_day_block(year, day),
+                self._get_part_block(year, day, 1),
+                self._get_part_block(year, day, 2),
+            ]
+        )
+
     def _get_starter_solution(self, year: int, day: int) -> str:
         docstring = "\n".join(
             [
@@ -58,12 +97,13 @@ class AdventOfCodeClient:
                 '"""',
             ]
         )
-        starter = docstring + "\n\n" + self.template_text
-        answers = self.get_answers(year, day)
-        if answers:
-            answer_string = ", ".join(answers)
-            starter += f'\n\n    print("Expected answers: {answer_string}")'
-        return starter
+        return "\n\n".join(
+            [
+                docstring,
+                self.template_text,
+                self._get_suffix(year, day),
+            ]
+        )
 
     def write_input_file(self, year: int, day: int) -> None:
         self._write_if_not_exists(
@@ -77,6 +117,16 @@ class AdventOfCodeClient:
             self._get_starter_solution(year, day),
         )
 
+    def append_suffix(self, year: int, day: int) -> None:
+        solution_file = AOC_DIR / f"y{year}" / f"day{day:02}" / "solve.py"
+        file_text = solution_file.read_text()
+        suffix = self._get_suffix(year, day)
+        if suffix in file_text:
+            print(f"Suffix is already present for {solution_file}")
+            return
+        with solution_file.open("a") as f:
+            f.write("\n\n" + suffix)
+
     def create_starter(self, year: int, day: int) -> None:
         self.write_input_file(year, day)
         self.write_solution_starter(year, day)
@@ -85,4 +135,5 @@ class AdventOfCodeClient:
         app = typer.Typer()
         app.command()(self.write_input_file)
         app.command()(self.write_solution_starter)
+        app.command()(self.append_suffix)
         return app

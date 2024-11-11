@@ -24,11 +24,3 @@ class Solver:
 if __name__ == "__main__":
     input_ = input_file.read_text().strip()
     solver = Solver(input_)
-
-    part_1 = solver.solve_part_1()
-    print("Part 1 solution: ", part_1)
-    copy_to_clipboard(part_1)
-
-    # part_2 = solver.solve_part_2()
-    # print("Part 2 solution: ", part_2)
-    # copy_to_clipboard(part_2)
