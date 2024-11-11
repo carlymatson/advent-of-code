@@ -1,3 +1,4 @@
+import itertools
 from functools import total_ordering
 from typing import Iterator, Self, Sequence
 
@@ -57,6 +58,11 @@ class Vector:
         return sum(
             abs(self.coords[idx] - other.coords[idx]) for idx in range(len(self.coords))
         )
+
+    def get_neighbors(self) -> list[Self]:
+        iterables = [[x - 1, x, x + 1] for x in self.coords]
+        points = (type(self)(*coords) for coords in itertools.product(*iterables))
+        return [point for point in points if point != self]
 
 
 class Point(Vector):
