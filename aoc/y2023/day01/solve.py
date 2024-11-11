@@ -65,8 +65,15 @@ if __name__ == "__main__":
     input_ = input_file.read_text().strip()
     solver = Solver(input_)
 
-    part_1 = solver.solve_part_1()
-    print("Part 1 solution: ", part_1)
+    print("--- Day 1: Trebuchet?! ---")
+    print("https://adventofcode.com/2023/day/1")
 
+    print("(1) What is the sum of all of the calibration values?")
+    part_1 = solver.solve_part_1()
+    print("Solution: " + str(part_1))
+    print("Expected: 53386")
+
+    print("(2) What is the sum of all of the calibration values?")
     part_2 = solver.solve_part_2()
-    print("Part 2 solution: ", part_2)
+    print("Solution: " + str(part_2))
+    print("Expected: 53312")
