@@ -12,6 +12,10 @@ python3 -m aoc.y2022.day05.solve
 
 # Problem Index
 
+## 2024
+
+- Day 1: [Historian Hysteria](https://adventofcode.com/2024/day/1) (🌟🌟)
+
 ## 2023
 
 - Day 1: [Trebuchet?!](https://adventofcode.com/2023/day/1) (🌟🌟)
